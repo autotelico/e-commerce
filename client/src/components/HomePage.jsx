@@ -8,7 +8,9 @@ export default function HomePage() {
     const fetchData = async () => {
       // API address is:
       // https://e-commerce-qys3.onrender.com/api
-      const res = await fetch('http://localhost:3000/');
+      // Test locally:
+      // https://localhost:3000
+      const res = await fetch('https://e-commerce-qys3.onrender.com/api');
       const data = await res.json();
       console.log(data);
       setFoodItems(data.allFoodItems);
