@@ -4,6 +4,19 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors')
+const mongoose = require('mongoose')
+
+async function connectToMongoDB() {
+  try {
+    mongoDB = 'mongodb+srv://henriqueheron1:8uCZzce8y89dU48z@cluster0.kiwb95y.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
+    await mongoose.connect(mongoDB)
+    console.log('Successfully connected to MongoDB!');
+  } catch(err) {
+    throw new Error('Failed to connect to MongoDB:', err)
+  }
+}
+
+connectToMongoDB()
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
