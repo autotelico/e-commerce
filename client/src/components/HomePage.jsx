@@ -10,7 +10,7 @@ export default function HomePage() {
       // https://e-commerce-qys3.onrender.com/api
       // Test locally:
       // https://localhost:3000
-      const res = await fetch('https://e-commerce-qys3.onrender.com/api');
+      const res = await fetch('https://e-commerce-qys3.onrender.com/');
       const data = await res.json();
       console.log(data);
       setFoodItems(data.allFoodItems);
