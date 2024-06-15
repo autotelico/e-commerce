@@ -5,7 +5,7 @@ export default function HomePage() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch('http://localhost:3000/api')
+      const res = await fetch('https://e-commerce-qys3.onrender.com/api')
       const data = await res.json()
       console.log(data);
       setItems(data)
