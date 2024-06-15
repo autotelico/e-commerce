@@ -1,33 +1,39 @@
 import { useState, useEffect } from 'react';
 
 export default function HomePage() {
-  const [items, setItems] = useState([]);
+  const [foodItems, setFoodItems] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch('https://e-commerce-qys3.onrender.com/api')
-      const data = await res.json()
+      // API address is:
+      // https://e-commerce-qys3.onrender.com/api
+      const res = await fetch('http://localhost:3000/');
+      const data = await res.json();
       console.log(data);
-      setItems(data)
+      setFoodItems(data.allFoodItems);
+      setCategories(data.allCategories);
     };
-    fetchData()
-    .catch(err => console.error(err))
+    fetchData().catch((err) => console.error(err));
   }, []);
 
   return (
-    <div>
-      <h1>Items</h1>
-      {items.map((item) => {
-        return (
-          <div key={item.name}>
-            <h2>{item.name}</h2>
-            <p>{item.description}</p>
-            <p>{item.price}</p>
-            <p>{item.numberInStock}</p>
-            <p>{item.category}</p>
-          </div>
-        );
-      })}
-    </div>
+    <>
+      <div className="bg-lime-500 h-[500px]"></div>
+      <div className='grid grid-cols-2 gap-5'>
+        {foodItems.map((item) => {
+          return (
+            <div key={item.name} className='relative p-2 border border-red-500'>
+              <div className='absolute top-0 right-0 bg-green-500 p-4' ></div>
+              <div className='rounded-md bg-slate-200'>
+                <h3 className='font-semibold text-xl'>{item.name}</h3>
+                <p>{item.description}</p>
+                <p>Category: {item.category.name}</p>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </>
   );
 }
