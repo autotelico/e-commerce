@@ -44,6 +44,10 @@ exports.create_post = [
   }),
 ];
 
+exports.delete_get = asyncHandler(async (req, res, next) => {
+  res.json({msg: 'delete_get works'})
+})
+
 exports.delete_post = asyncHandler(async (req, res, next) => {
   const [allFoodItemsInCategory, categoryToDelete] = await Promise.all([
     foodItem.find({category: req.params.id}).exec(),

@@ -10,6 +10,7 @@ router.get('/category/search/:name', categoryController.find)
 router.get('/category/add', categoryController.create_get);
 router.post('/category/add', categoryController.create_post);
 // update missing
+router.get('/delete/category/:id', categoryController.delete_get);
 router.post('/delete/category/:id', categoryController.delete_post);
 
 module.exports = router;
