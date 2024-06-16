@@ -58,7 +58,7 @@ export default function CategoryDelete() {
         </ul>
         <label htmlFor="password">Enter admin password to proceed:</label>
         <input
-          type="text"
+          type="password"
           id="password"
           name="password"
           onChange={(e) => setCurrentPassword(e.target.value)}
