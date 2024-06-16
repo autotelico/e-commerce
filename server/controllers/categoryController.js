@@ -2,6 +2,7 @@ const Category = require('../models/category');
 const asyncHandler = require('express-async-handler');
 const { body, validationResult } = require('express-validator');
 const foodItem = require('../models/foodItem');
+require('dotenv').config()
 
 exports.find = asyncHandler(async (req, res, next) => {
 
@@ -48,7 +49,21 @@ exports.delete_get = asyncHandler(async (req, res, next) => {
   res.json({msg: 'delete_get works'})
 })
 
-exports.delete_post = asyncHandler(async (req, res, next) => {
+exports.delete_post = [
+  body('password')
+    .isLength({min: 1})
+    .withMessage('Password is required')
+    .equals(process.env.PASSWORD)
+    .withMessage('Wrong password'),
+  
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req)
+
+    if (!errors.isEmpty()) {
+      res.json({validationErrors: errors.array()})
+      return
+    }
+    
   const [allFoodItemsInCategory, categoryToDelete] = await Promise.all([
     foodItem.find({category: req.params.id}).exec(),
     Category.findById(req.params.id).exec(),
@@ -64,8 +79,8 @@ exports.delete_post = asyncHandler(async (req, res, next) => {
 
   if (categoryToDelete) {
     await Category.findByIdAndDelete(req.params.id)
-    res.json({success: 'Category successfully deleted.', item: categoryToDelete})
+    res.json({success: 'Category successfully deleted.', item: categoryToDelete, pw: req.body.password})
   } else {
     res.json({error: 'Category not found.'})
   }
-})
+})]
